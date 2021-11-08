@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+
+    <style>
+        #dis {
+            display: grid;
+            grid-template-columns: repeat(4, 22%);
+
+            justify-content: space-evenly;
+            row-gap: 20px;
+
+        }
+
+        div>div {
+            border: 2px solid teal;
+            border-radius: 10px;
+            text-align: center;
+            padding-bottom: 5px;
+        }
+
+        img {
+            width: 100%;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Masai food corner</h1>
+
+    <div id="dis"></div>
+
+</body>
+
+</html>
+
+
+
+<script>
+
+    // https://www.themealdb.com/api.php?ref=apilist.fun
+
+    // www.themealdb.com/api/json/v1/1/random.php
+
+    // www.themealdb.com/api/json/v1/1/list.php?c=list
+
+    //  https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood
+
+    let dis = document.getElementById("dis");
+
+    async function randommenu() {
+
+        try {
+            let req = await fetch("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood")
+
+            console.log("bef", req);
+
+            data = await req.json()
+
+            console.log("aft", data.meals)
+
+            display(data.meals)
+        }
+
+        catch (error) {
+            console.log("myerr =", error)
+        }
+
+
+    }
+
+    randommenu()
+
+    function display(data) {
+
+
+        data.forEach((element) => {
+
+            let mydiv = document.createElement("div");
+            let image = document.createElement("img");
+            image.src = element.strMealThumb;
+            let p1 = document.createElement("p");
+            p1.innerText = element.strMeal;
+            let p2 = document.createElement("p");
+            p2.innerText = `IdMeal :${element.idMeal}`;
+            let btn = document.createElement("button");
+            btn.innerText = "Add to cart";
+            btn.addEventListener("click",addtoCart)
+
+            mydiv.append(image, p1, p2, btn);
+
+            dis.append(mydiv)
+
+
+
+        });
+
+    }
+
+    function addtoCart(){
+        alert`Item added to cart`
+        window.location.href="cart.html"
+
+    }
+
+</script>

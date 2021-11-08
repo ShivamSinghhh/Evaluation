@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <style>
+        body {
+            background-image: url("https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+            background-size: 100%;
+        }
+
+        form {
+            background: burlywood;
+            padding-left: 35px;
+            margin: 15px auto;
+            width: 350px;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding-bottom: 20px;
+
+        }
+
+        input {
+            height: 22px;
+            width: 80%;
+            margin: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+
+        label {
+            font-size: large;
+        }
+
+        #submit {
+            background-color: black;
+            color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="">
+        <h2>SignUp</h2>
+        <label for="">Name</label>
+        <input type="text" placeholder="Name" id="name" />
+        <label for="">Email</label>
+        <input type="email" placeholder="Email" id="email" />
+        <label for="">Password</label>
+        <input type="password" placeholder="Password" id="password" />
+        <label for="">Username</label>
+        <input type="text" placeholder="Username" id="username" />
+        <label for="">Mobile</label>
+        <input type="number" placeholder="Mobile" id="mobile" />
+        <label for="">Description</label>
+        <input type="text" placeholder="Description" id="description" />
+        <input type="submit" placeholder="Description" id="submit" />
+    </form>
+</body>
+
+</html>
+
+<script>
+
+    //  https://github.com/masai-school/api-mocker/wiki/Authentication-API 
+    //   https://masai-api-mocker.herokuapp.com
+
+    let signup = document.querySelector("form");
+    signup.addEventListener("submit", register)
+    // console.log(signup);
+
+
+
+    function register(e) {
+
+        e.preventDefault()
+
+        // alert`working`
+
+        let user = {
+            name: signup.name.value,
+            email: signup.email.value,
+            password: signup.password.value,
+            username: signup.username.value,
+            mobile: signup.mobile.value,
+            description: signup.description.value,
+
+        }
+
+        console.log(user);
+        user_data = JSON.stringify(user);
+
+        fetch("http://masai-api-mocker.herokuapp.com/auth/register", {
+            method: "POST",
+            body: user_data,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+
+    }
+
+
+
+
+</script>
